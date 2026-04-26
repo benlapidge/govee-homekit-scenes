@@ -13,14 +13,18 @@ Config gConfig;
 GoveeClient gClient(gConfig);
 SceneController gController;
 
-String trim(const char* s) {
+// HomeSpan's SpanUserCommand callback hands us the buffer starting AT the
+// command character (e.g. "K abc123"), not after it — skip the first char,
+// then strip surrounding whitespace.
+String extractArg(const char* s) {
+    if (*s) ++s;
     String v(s);
     v.trim();
     return v;
 }
 
 void cmdSetKey(const char* buf) {
-    String v = trim(buf);
+    String v = extractArg(buf);
     if (v.length() == 0) {
         Serial.println("usage: @K <api-key>");
         return;
@@ -31,7 +35,7 @@ void cmdSetKey(const char* buf) {
 }
 
 void cmdSetDevice(const char* buf) {
-    String v = trim(buf);
+    String v = extractArg(buf);
     if (v.length() == 0) {
         Serial.println("usage: @D <device-id>");
         return;
@@ -42,7 +46,7 @@ void cmdSetDevice(const char* buf) {
 }
 
 void cmdSetSku(const char* buf) {
-    String v = trim(buf);
+    String v = extractArg(buf);
     if (v.length() == 0) {
         Serial.println("usage: @S <sku>");
         return;
