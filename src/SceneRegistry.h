@@ -10,6 +10,7 @@ struct SceneDef {
 
 // Add new scenes by appending one line. Names must be unique per HomeKit accessory.
 constexpr SceneDef SCENES[] = {
+    {"Afternoon Tea", 36951, 26278},
     {"Cyberpunk",  36967, 26293},
     {"Sunset",     1335,  1260},
     {"Aurora",     17876, 10671},
